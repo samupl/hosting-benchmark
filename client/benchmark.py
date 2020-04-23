@@ -4,6 +4,7 @@ from urllib.parse import urlparse
 import click
 
 from commands.cpu import main as cpu_benchmark
+from commands.io import main as io_benchmark
 
 
 @click.group()
@@ -47,6 +48,7 @@ def cli(ctx, hostname, dump, count, sleep):
 
 
 cli.add_command(cpu_benchmark, name='cpu')
+cli.add_command(io_benchmark, name='io')
 
 
 if __name__ == '__main__':

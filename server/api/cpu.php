@@ -2,7 +2,6 @@
 header('Content-type: application/json');
 
 include '../inc.php';
-
 set_time_limit(60 * 2);
 
 $results = array(

@@ -12,6 +12,7 @@ with open(path.join(BASE_DIR, 'README.md'), encoding='utf-8') as f:
 required_packages = [
     'click',
     'requests',
+    'terminaltables',
 ]
 
 extras_require = {

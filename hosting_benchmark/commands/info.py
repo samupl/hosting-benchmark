@@ -3,7 +3,7 @@ import requests
 from terminaltables import SingleTable
 
 
-@click.command()
+@click.command(help='Get information about the server')
 @click.pass_context
 def main(ctx):
     click.secho("Information", bold=True)

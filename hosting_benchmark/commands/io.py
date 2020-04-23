@@ -9,7 +9,7 @@ from hosting_benchmark.inc.tools import (
 )
 
 
-@click.command()
+@click.command(help='Run the I/O benchmark')
 @click.pass_context
 def main(ctx):
     click.secho("I/O Benchmark", bold=True)

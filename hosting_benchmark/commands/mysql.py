@@ -9,7 +9,7 @@ from hosting_benchmark.inc.tools import (
 )
 
 
-@click.command()
+@click.command(help='Run the MySQL benchmark')
 @click.pass_context
 def main(ctx):
     click.secho("MySQL Benchmark", bold=True)

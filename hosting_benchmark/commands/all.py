@@ -6,7 +6,7 @@ from hosting_benchmark.commands.mysql import main as mysql_benchmark
 from hosting_benchmark.commands.info import main as info_command
 
 
-@click.command()
+@click.command(help='Run all benchmark tests')
 @click.pass_context
 def main(ctx):
     ctx.forward(info_command)

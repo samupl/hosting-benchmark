@@ -8,19 +8,18 @@ required_packages = [
 ]
 
 extras_require = {
-    "dev": ["ipython"],
+    "dev": ["ipython", "twine"],
     "test": ["mock", "munch", "pytest", "pytest-mock < 3.0"],
 }
 
 setup(
-    name="tools",
+    name="hosting-benchmark",
     version=__version__,
     description="PHP Web-hosting benchmark",
     author="Jakub Szafrański",
     author_email="kontakt@samu.pl",
     url="https://github.com/samupl/hosting-benchmark",
     packages=find_packages(),
-    include_package_data=True,
     test_suite="tests",
     install_requires=required_packages,
     extras_require=extras_require,

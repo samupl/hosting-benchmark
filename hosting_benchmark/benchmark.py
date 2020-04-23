@@ -8,7 +8,7 @@ from hosting_benchmark.commands.cpu import main as cpu_benchmark
 from hosting_benchmark.commands.io import main as io_benchmark
 from hosting_benchmark.commands.mysql import main as mysql_benchmark
 from hosting_benchmark.commands.info import main as info_command
-
+from hosting_benchmark.commands.archive import main as archive_command
 
 @click.group()
 @click.option('--hostname', help='Hostname used to run the benchmark')
@@ -33,7 +33,7 @@ def cli(ctx, hostname, dump, count, sleep):
     ctx.ensure_object(dict)
 
     # Remove trailing slash from URL
-    if hostname.endswith('/'):
+    if hostname and hostname.endswith('/'):
         hostname = hostname[:-1]
 
     ctx.obj['hostname'] = hostname
@@ -47,9 +47,11 @@ def cli(ctx, hostname, dump, count, sleep):
         hostname_fmt = urlparse(hostname).netloc
         ctx.obj['dump_dir'] = f'results/benchmark_{hostname_fmt}_{now_fmt}'
 
-    click.echo(f'Running benchmark for host: {ctx.obj["hostname"]}\n')
+    if hostname:
+        click.echo(f'Running benchmark for host: {ctx.obj["hostname"]}\n')
 
 
+cli.add_command(archive_command, name='archive')
 cli.add_command(all_benchmark, name='all')
 cli.add_command(cpu_benchmark, name='cpu')
 cli.add_command(io_benchmark, name='io')

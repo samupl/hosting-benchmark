@@ -10,7 +10,7 @@ from hosting_benchmark.inc.tools import (
 )
 
 
-@click.command()
+@click.command(help='Run the CPU benchmark')
 @click.pass_context
 def main(ctx):
     click.secho("CPU Benchmark", bold=True)

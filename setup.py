@@ -1,6 +1,13 @@
+from os import path
+
 from setuptools import find_packages, setup
 
 from hosting_benchmark.version import __version__
+
+BASE_DIR = path.abspath(path.dirname(__file__))
+
+with open(path.join(BASE_DIR, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 required_packages = [
     'click',
@@ -16,6 +23,8 @@ setup(
     name="hosting-benchmark",
     version=__version__,
     description="PHP Web-hosting benchmark",
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     author="Jakub Szafrański",
     author_email="kontakt@samu.pl",
     url="https://github.com/samupl/hosting-benchmark",

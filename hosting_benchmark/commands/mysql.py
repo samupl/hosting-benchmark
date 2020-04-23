@@ -3,19 +3,21 @@ import time
 import click
 import requests
 
-from inc.taxonomies import BenchmarkResult
-from inc.tools import calculate_timing_stats, get_timings, render_table
+from hosting_benchmark.inc.taxonomies import BenchmarkResult
+from hosting_benchmark.inc.tools import (
+    calculate_timing_stats, get_timings, render_table
+)
 
 
 @click.command()
 @click.pass_context
 def main(ctx):
-    click.secho("CPU Benchmark", bold=True)
+    click.secho("MySQL Benchmark", bold=True)
     results = []
     with click.progressbar(range(ctx.obj['count'])) as bar:
         for number in bar:
             response = requests.get(
-                url=f'{ctx.obj["hostname"]}/api/cpu.php'
+                url=f'{ctx.obj["hostname"]}/api/mysql.php'
             )
             response.raise_for_status()
             results.append(
@@ -27,17 +29,15 @@ def main(ctx):
             )
             time.sleep(ctx.obj['sleep'])
 
-    math_timings = get_timings(results, 'math')
-    string_timings = get_timings(results, 'string')
-    loops_timings = get_timings(results, 'loops')
-    if_else_timings = get_timings(results, 'ifElse')
+    insert_timings = get_timings(results, 'insert')
+    insert_single_transaction_timings = get_timings(
+        results, 'insertSingleTransaction')
     result = {
         'results': results,
         'timings': {
-            'math': calculate_timing_stats(math_timings),
-            'string': calculate_timing_stats(string_timings),
-            'loops': calculate_timing_stats(loops_timings),
-            'if_else': calculate_timing_stats(if_else_timings),
+            'insert': calculate_timing_stats(insert_timings),
+            'insert_single_transaction': calculate_timing_stats(
+                insert_single_transaction_timings),
         }
     }
     table = render_table(result)

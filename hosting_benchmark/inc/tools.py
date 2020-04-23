@@ -3,8 +3,8 @@ from typing import Dict, Iterable
 
 from terminaltables import SingleTable
 
-from inc.formatters import format_timing
-from inc.taxonomies import BenchmarkResult
+from hosting_benchmark.inc.formatters import format_timing
+from hosting_benchmark.inc.taxonomies import BenchmarkResult
 
 
 def get_timings(results: Iterable[BenchmarkResult], key: str):

@@ -3,11 +3,11 @@ from urllib.parse import urlparse
 
 import click
 
-from commands.all import main as all_benchmark
-from commands.cpu import main as cpu_benchmark
-from commands.io import main as io_benchmark
-from commands.mysql import main as mysql_benchmark
-from commands.info import main as info_command
+from hosting_benchmark.commands.all import main as all_benchmark
+from hosting_benchmark.commands.cpu import main as cpu_benchmark
+from hosting_benchmark.commands.io import main as io_benchmark
+from hosting_benchmark.commands.mysql import main as mysql_benchmark
+from hosting_benchmark.commands.info import main as info_command
 
 
 @click.group()

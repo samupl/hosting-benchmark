@@ -3,8 +3,10 @@ import time
 import click
 import requests
 
-from inc.taxonomies import BenchmarkResult
-from inc.tools import calculate_timing_stats, get_timings, render_table
+from hosting_benchmark.inc.taxonomies import BenchmarkResult
+from hosting_benchmark.inc.tools import (
+    calculate_timing_stats, get_timings, render_table
+)
 
 
 @click.command()

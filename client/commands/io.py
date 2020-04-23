@@ -33,6 +33,8 @@ def main(ctx):
     create_and_remove_empty_timings = get_timings(
         results, 'createAndRemoveEmpty')
     small_write_timings = get_timings(results, 'smallWrite')
+    big_write_timings = get_timings(results, 'bigWrite')
+    random_write_timings = get_timings(results, 'randomWrite')
 
     result = {
         'results': results,
@@ -40,6 +42,8 @@ def main(ctx):
             'create_and_remove_empty': calculate_timing_stats(
                 create_and_remove_empty_timings),
             'small_write': calculate_timing_stats(small_write_timings),
+            'big_write': calculate_timing_stats(big_write_timings),
+            'random_write': calculate_timing_stats(random_write_timings),
         }
     }
     table = render_table(result)

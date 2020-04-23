@@ -1,11 +1,8 @@
 import time
-from statistics import mean
 
 import click
 import requests
-from terminaltables import SingleTable
 
-from inc.formatters import format_timing
 from inc.taxonomies import BenchmarkResult
 from inc.tools import calculate_timing_stats, get_timings, render_table
 

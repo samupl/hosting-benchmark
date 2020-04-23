@@ -3,6 +3,7 @@ from urllib.parse import urlparse
 
 import click
 
+from commands.all import main as all_benchmark
 from commands.cpu import main as cpu_benchmark
 from commands.io import main as io_benchmark
 
@@ -49,6 +50,7 @@ def cli(ctx, hostname, dump, count, sleep):
 
 cli.add_command(cpu_benchmark, name='cpu')
 cli.add_command(io_benchmark, name='io')
+cli.add_command(all_benchmark, name='all')
 
 
 if __name__ == '__main__':

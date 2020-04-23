@@ -10,12 +10,12 @@ from inc.tools import calculate_timing_stats, get_timings, render_table
 @click.command()
 @click.pass_context
 def main(ctx):
-    click.secho("I/O Benchmark", bold=True)
+    click.secho("MySQL Benchmark", bold=True)
     results = []
     with click.progressbar(range(ctx.obj['count'])) as bar:
         for number in bar:
             response = requests.get(
-                url=f'{ctx.obj["hostname"]}/api/io.php'
+                url=f'{ctx.obj["hostname"]}/api/mysql.php'
             )
             response.raise_for_status()
             results.append(
@@ -27,20 +27,15 @@ def main(ctx):
             )
             time.sleep(ctx.obj['sleep'])
 
-    create_and_remove_empty_timings = get_timings(
-        results, 'createAndRemoveEmpty')
-    small_write_timings = get_timings(results, 'smallWrite')
-    big_write_timings = get_timings(results, 'bigWrite')
-    random_write_timings = get_timings(results, 'randomWrite')
-
+    insert_timings = get_timings(results, 'insert')
+    insert_single_transaction_timings = get_timings(
+        results, 'insertSingleTransaction')
     result = {
         'results': results,
         'timings': {
-            'create_and_remove_empty': calculate_timing_stats(
-                create_and_remove_empty_timings),
-            'small_write': calculate_timing_stats(small_write_timings),
-            'big_write': calculate_timing_stats(big_write_timings),
-            'random_write': calculate_timing_stats(random_write_timings),
+            'insert': calculate_timing_stats(insert_timings),
+            'insert_single_transaction': calculate_timing_stats(
+                insert_single_transaction_timings),
         }
     }
     table = render_table(result)

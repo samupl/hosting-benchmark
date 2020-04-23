@@ -6,6 +6,8 @@ import click
 from commands.all import main as all_benchmark
 from commands.cpu import main as cpu_benchmark
 from commands.io import main as io_benchmark
+from commands.mysql import main as mysql_benchmark
+from commands.info import main as info_command
 
 
 @click.group()
@@ -48,9 +50,11 @@ def cli(ctx, hostname, dump, count, sleep):
     click.echo(f'Running benchmark for host: {ctx.obj["hostname"]}\n')
 
 
+cli.add_command(all_benchmark, name='all')
 cli.add_command(cpu_benchmark, name='cpu')
 cli.add_command(io_benchmark, name='io')
-cli.add_command(all_benchmark, name='all')
+cli.add_command(info_command, name='info')
+cli.add_command(mysql_benchmark, name='mysql')
 
 
 if __name__ == '__main__':

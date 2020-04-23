@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 hosting_benchmark.zip
+
+# PyCharm
+.idea

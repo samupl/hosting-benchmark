@@ -19,15 +19,17 @@ def main(ctx):
             response = requests.get(
                 url=f'{ctx.obj["hostname"]}/api/mysql.php'
             )
-            response.raise_for_status()
-            results.append(
-                BenchmarkResult(
-                    timestamp=time.time(),
-                    number=number,
-                    data=response.json()
+            if response.status_code == 200:
+                results.append(
+                    BenchmarkResult(
+                        timestamp=time.time(),
+                        number=number,
+                        data=response.json()
+                    )
                 )
-            )
-            time.sleep(ctx.obj['sleep'])
+                time.sleep(ctx.obj['sleep'])
+            else:
+                raise click.ClickException(f'{ctx.obj["hostname"]}/api/mysql.php Not Found!')
 
     insert_timings = get_timings(results, 'insert')
     insert_single_transaction_timings = get_timings(

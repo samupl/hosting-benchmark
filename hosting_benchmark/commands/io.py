@@ -19,15 +19,17 @@ def main(ctx):
             response = requests.get(
                 url=f'{ctx.obj["hostname"]}/api/io.php'
             )
-            response.raise_for_status()
-            results.append(
-                BenchmarkResult(
-                    timestamp=time.time(),
-                    number=number,
-                    data=response.json()
+            if response.status_code == 200:
+                results.append(
+                    BenchmarkResult(
+                        timestamp=time.time(),
+                        number=number,
+                        data=response.json()
+                    )
                 )
-            )
-            time.sleep(ctx.obj['sleep'])
+                time.sleep(ctx.obj['sleep'])
+            else:
+                raise click.ClickException(f'{ctx.obj["hostname"]}/api/io.php Not Found!')
 
     create_and_remove_empty_timings = get_timings(
         results, 'createAndRemoveEmpty')

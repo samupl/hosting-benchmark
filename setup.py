@@ -39,4 +39,5 @@ setup(
             "hosting-benchmark = hosting_benchmark.benchmark:cli",
         ]
     },
+    include_package_data=True,
 )

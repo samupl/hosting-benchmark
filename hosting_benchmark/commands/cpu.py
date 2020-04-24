@@ -20,17 +20,17 @@ def main(ctx):
             response = requests.get(
                 url=f'{ctx.obj["hostname"]}/api/cpu.php'
             )
-            if response.status_code == 200:
-                results.append(
-                    BenchmarkResult(
-                        timestamp=time.time(),
-                        number=number,
-                        data=response.json()
-                    )
-                )
-                time.sleep(ctx.obj['sleep'])
-            else:
+            if response.status_code != 200:
                 raise click.ClickException(f'{ctx.obj["hostname"]}/api/cpu.php Not Found!')
+
+            results.append(
+                BenchmarkResult(
+                    timestamp=time.time(),
+                    number=number,
+                    data=response.json()
+                )
+            )
+            time.sleep(ctx.obj['sleep'])
 
     math_timings = get_timings(results, 'math')
     string_timings = get_timings(results, 'string')

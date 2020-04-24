@@ -10,7 +10,9 @@ def main(ctx):
     response = requests.get(
         url=f'{ctx.obj["hostname"]}/api/info.php'
     )
-    response.raise_for_status()
+    if response.status_code != 200:
+        raise click.ClickException(f'{ctx.obj["hostname"]}/api/info.php Not Found!')
+
     data = response.json()
     table = SingleTable(table_data=[
         ['PHP Version', data['phpVersion']],

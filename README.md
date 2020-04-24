@@ -15,10 +15,10 @@ pip install hosting-benchmark
 The benchmark consists of two components:
 
 * A *server*, which is a set of PHP scripts that run the benchmark
-* A *client*, which is a cli (command line interface) tool used to run the 
+* A *client*, which is a cli (command line interface) tool used to run the
   benchmark and collect/present the data.
-  
-In order to run the benchmark, you need to install the server app. This is 
+
+In order to run the benchmark, you need to install the server app. This is
 fairly straightforward:
 
 * Create a MySQL database on your web hosting, note down the credentials

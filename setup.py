@@ -1,13 +1,27 @@
-from os import path
+import os
 
 from setuptools import find_packages, setup
 
 from hosting_benchmark.version import __version__
 
-BASE_DIR = path.abspath(path.dirname(__file__))
 
-with open(path.join(BASE_DIR, 'README.md'), encoding='utf-8') as f:
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+
+def package_files(directory):
+    paths = []
+    for (path, directories, filenames) in os.walk(directory):
+        for filename in filenames:
+            paths.append(os.path.join('..', path, filename))
+    return paths
+
+
+with open(os.path.join(BASE_DIR, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
+
+extra_files = package_files(
+    os.path.join(BASE_DIR, 'hosting_benchmark', 'server')
+)
 
 required_packages = [
     'click',
@@ -39,5 +53,5 @@ setup(
             "hosting-benchmark = hosting_benchmark.benchmark:cli",
         ]
     },
-    include_package_data=True,
+    package_data={'': extra_files}
 )

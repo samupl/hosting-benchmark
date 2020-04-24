@@ -1,4 +1,9 @@
 # Changelog
+* `0.0.6` (2020-04-24)
+  * Show human-friendly error message on a non-200 http response code
+  * Add pre-commit linters
+  * Add github actions (CI)
+  * Automated releases
 * `0.0.5` (2020-04-24)
   * Fix archive file missing api directory
 * `0.0.4` (2020-04-23)

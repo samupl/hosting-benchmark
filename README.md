@@ -33,3 +33,9 @@ hosting-benchmark --hostname=https://example.com/ --count=10 --sleep=5 all
 
 To learn what the `--count` and `--sleep` flags do, please invoke
 `hosting-benchmark --help`.
+
+## Development
+
+### Precommit Hooks
+
+This project supports [pre-commit](https://pre-commit.com/). To use it please install it in the `pip install pre-commit` and then run `pre-commit install` and you are ready to go. `black` will be executed before commit and files will be formatted correctly.

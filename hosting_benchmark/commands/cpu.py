@@ -1,3 +1,4 @@
+"""CPU Benchmark."""
 import time
 
 import click
@@ -5,45 +6,48 @@ import requests
 
 from hosting_benchmark.inc.taxonomies import BenchmarkResult
 from hosting_benchmark.inc.tools import (
-    calculate_timing_stats, get_timings,
-    render_table
+    calculate_timing_stats,
+    get_timings,
+    render_table,
 )
 
 
-@click.command(help='Run the CPU benchmark')
+@click.command(help="Run the CPU benchmark")
 @click.pass_context
-def main(ctx):
+def main(ctx: click.Context):
+    """CPU benchmark command entrypoint.
+
+    :param ctx: Click context instance
+    """
     click.secho("CPU Benchmark", bold=True)
     results = []
-    with click.progressbar(range(ctx.obj['count'])) as bar:
+    with click.progressbar(range(ctx.obj["count"])) as bar:
         for number in bar:
-            response = requests.get(
-                url=f'{ctx.obj["hostname"]}/api/cpu.php'
-            )
+            response = requests.get(url=f'{ctx.obj["hostname"]}/api/cpu.php')
             if response.status_code != 200:
-                raise click.ClickException(f'{ctx.obj["hostname"]}/api/cpu.php Not Found!')
+                raise click.ClickException(
+                    f'{ctx.obj["hostname"]}/api/cpu.php Not Found!'
+                )
 
             results.append(
                 BenchmarkResult(
-                    timestamp=time.time(),
-                    number=number,
-                    data=response.json()
+                    timestamp=time.time(), number=number, data=response.json()
                 )
             )
-            time.sleep(ctx.obj['sleep'])
+            time.sleep(ctx.obj["sleep"])
 
-    math_timings = get_timings(results, 'math')
-    string_timings = get_timings(results, 'string')
-    loops_timings = get_timings(results, 'loops')
-    if_else_timings = get_timings(results, 'ifElse')
+    math_timings = get_timings(results, "math")
+    string_timings = get_timings(results, "string")
+    loops_timings = get_timings(results, "loops")
+    if_else_timings = get_timings(results, "ifElse")
     result = {
-        'results': results,
-        'timings': {
-            'math': calculate_timing_stats(math_timings),
-            'string': calculate_timing_stats(string_timings),
-            'loops': calculate_timing_stats(loops_timings),
-            'if_else': calculate_timing_stats(if_else_timings),
-        }
+        "results": results,
+        "timings": {
+            "math": calculate_timing_stats(math_timings),
+            "string": calculate_timing_stats(string_timings),
+            "loops": calculate_timing_stats(loops_timings),
+            "if_else": calculate_timing_stats(if_else_timings),
+        },
     }
     table = render_table(result)
     click.echo(table)

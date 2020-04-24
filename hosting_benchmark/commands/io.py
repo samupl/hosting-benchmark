@@ -25,7 +25,9 @@ def main(ctx: click.Context):
         for number in bar:
             response = requests.get(url=f'{ctx.obj["hostname"]}/api/io.php')
             if response.status_code != 200:
-                raise click.ClickException(f'{ctx.obj["hostname"]}/api/io.php Not Found!')
+                raise click.ClickException(
+                    f'{ctx.obj["hostname"]}/api/io.php Not Found!'
+                )
 
             results.append(
                 BenchmarkResult(

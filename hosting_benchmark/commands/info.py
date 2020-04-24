@@ -14,7 +14,9 @@ def main(ctx: click.Context):
     click.secho("Information", bold=True)
     response = requests.get(url=f'{ctx.obj["hostname"]}/api/info.php')
     if response.status_code != 200:
-        raise click.ClickException(f'{ctx.obj["hostname"]}/api/info.php Not Found!')
+        raise click.ClickException(
+            f'{ctx.obj["hostname"]}/api/info.php Not Found!'
+        )
 
     data = response.json()
     table = SingleTable(
